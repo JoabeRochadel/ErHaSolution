@@ -34,7 +34,7 @@ namespace ErHaSolution.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult<EmployeeCategory>> FindById(int id)
         {
-            var category = await _context.EmployeeCategories.FirstOrDefaultAsync(p => p.Id.Equals(id));
+            var category = await _context.EmployeeCategories.AsNoTracking().FirstOrDefaultAsync(p => p.Id.Equals(id));
             if (category == null)
             {
                 NotFound();
