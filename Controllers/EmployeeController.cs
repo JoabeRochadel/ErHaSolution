@@ -117,18 +117,26 @@ namespace ErHaSolution.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<ActionResult<List<Employee>>> DeletarFuncionario(int id)
+        public async Task<ActionResult<List<Employee>>> DeletarFuncionario([FromServices] DataContext context, int id)
         {
+
+            var employee = await context.Employee.FirstOrDefaultAsync(x => x.Id == id);
+            if (employee == null)
+            {
+                return NotFound(new { message = "Categoria não encontrada" });
+            }
+
             try
             {
-                return Ok();
+                context.Employee.Remove(employee);
+                await context.SaveChangesAsync();
+                return Ok(new { message = "Funcionário removido com sucesso" });
             }
-            catch
+            catch (Exception ex)
             {
                 return BadRequest(new { message = "Erro ao deletar funcionário" });
             }
 
         }
-
     }
 }

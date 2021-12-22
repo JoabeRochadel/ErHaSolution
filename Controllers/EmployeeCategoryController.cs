@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ErHaSolution.Data;
 using ErHaSolution.Models;
@@ -92,7 +93,7 @@ namespace ErHaSolution.Controllers
                 return BadRequest(ModelState);
             }
 
-        
+
             try
             {
                 context.Entry<EmployeeCategory>(category).State = EntityState.Modified;
@@ -108,15 +109,23 @@ namespace ErHaSolution.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<ActionResult<List<EmployeeCategory>>> DeletarCategoria(int id)
+        public async Task<ActionResult<List<EmployeeCategory>>> DeletarCategoria([FromServices] DataContext context, int id)
         {
+            var category = await context.EmployeeCategories.FirstOrDefaultAsync(x => x.Id == id);
+            if (category == null)
+            {
+                return NotFound(new { message = "Categoria não encontrada" });
+            }
+
             try
             {
-                return Ok();
+                context.EmployeeCategories.Remove(category);
+                await context.SaveChangesAsync();
+                return Ok(new {message = "Categoria removida com sucesso"});
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(new { message = "Erro ao deletar categoria" });
+                return BadRequest(new { message = "Erro ao deletar funcionário" });
             }
 
         }
