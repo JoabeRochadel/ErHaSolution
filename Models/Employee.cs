@@ -6,18 +6,7 @@ namespace ErHaSolution.Models
 {
     public class Employee
     {
-        /*
-         * id ok 
-         * name
-         * Birth Date
-         * Address
-         * Gender
-         * Sallary
-         * Hired Date
-         * Fired date
-         * Employee Category
-         */
-
+        
         [Key]
         public int Id { get; set; }
 
@@ -25,6 +14,7 @@ namespace ErHaSolution.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
         [Required]
@@ -37,17 +27,14 @@ namespace ErHaSolution.Models
         public double Sallary { get; set; }
 
         [Required]
-        public DateTime HiredDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime  HiredDate { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime FiredDate { get; set; }
 
-        [Required]
+        public int EmployeeCategoryId { get; set; }
         public EmployeeCategory EmployeeCategory { get; set; }
-
-
-        //employee category
-
-
 
     }
 }

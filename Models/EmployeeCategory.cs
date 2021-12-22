@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ErHaSolution.Models
 {
-    [Table("Category")]
+    [Table("EmployeeCategory")]
     public class EmployeeCategory
     {
         [Key]
@@ -15,5 +16,8 @@ namespace ErHaSolution.Models
         [MaxLength(60, ErrorMessage = "Este campo deve contar entre 3 e 60 caracteres")]
         [MinLength(3, ErrorMessage = "Este campo deve contar entre 3 e 60 caracteres")]
         public string Category { get; set; }
+
+
+
     }
 }

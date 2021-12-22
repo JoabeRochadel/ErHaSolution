@@ -19,6 +19,8 @@ namespace ErHaSolution.Data
         }
         public DbSet<EmployeeCategory> EmployeeCategories { get; set; }
 
+        public DbSet<Employee> Employee { get; set; }
+
     }
 
 }
